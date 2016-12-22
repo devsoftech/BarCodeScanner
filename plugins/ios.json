@@ -65,7 +65,7 @@
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         },
         "phonegap-plugin-barcodescanner": {
-            "CAMERA_USAGE_DESCRIPTION": " ",
+            "CAMERA_USAGE_DESCRIPTION": "To scan barcodes",
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         }
     },

@@ -75,6 +75,9 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="BarcodeScanner">
+        <param name="ios-package" value="CDVBarcodeScanner" />
+    </feature>
     <name>BarCodeScanner</name>
     <description>
         Hello World sample application that responds to the deviceready event.
@@ -135,7 +138,4 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="android-minSdkVersion" value="14" />
-    <feature name="BarcodeScanner">
-        <param name="ios-package" value="CDVBarcodeScanner" />
-    </feature>
 </widget>

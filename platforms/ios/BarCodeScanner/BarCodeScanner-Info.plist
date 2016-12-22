@@ -55,6 +55,6 @@
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
     <key>NSCameraUsageDescription</key>
-    <string></string>
+    <string>To scan barcodes</string>
   </dict>
 </plist>
