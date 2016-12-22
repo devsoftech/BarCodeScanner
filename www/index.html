@@ -7,6 +7,8 @@
  <script type="text/javascript">
  function scan(){
  alert("clicked");
+ alert(JSON.stringify(cordova.plugins));
+ alert(JSON.stringify(cordova.plugins.barcodeScanner));
  cordova.plugins.barcodeScanner.scan(function(result){
  //success callback
  alert(JSON.stringify(result));
