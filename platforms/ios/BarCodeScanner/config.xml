@@ -18,9 +18,6 @@
     <feature name="Battery">
         <param name="ios-package" value="CDVBattery" />
     </feature>
-    <feature name="Camera">
-        <param name="ios-package" value="CDVCamera" />
-    </feature>
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
@@ -81,12 +78,15 @@
     <feature name="PushNotification">
         <param name="ios-package" value="PushPlugin" />
     </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
     <name>BarCodeScanner</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        BarCode scan for totp
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="devsoft@gmail.com" href="http://devesh.in">
+        Devesh Kumar
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -137,8 +137,9 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
-    <preference name="CameraUsesGeolocation" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="CameraUsesGeolocation" value="false" />
+    <preference name="permissions" value="none" />
     <preference name="android-minSdkVersion" value="14" />
 </widget>

@@ -1,6 +1,6 @@
-# Hello World PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
+# BarCode scan for totp Template [![bitHound Score][bithound-img]][bithound-url]
 
-A PhoneGap Hello World template
+BarCode scan for totp
 
 ## Usage
 

@@ -2,13 +2,14 @@
 <widget id="com.phonegappro.barcodescanner" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>BarCodeScanner</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        BarCode scan for totp
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="devsoft@gmail.com" href="http://devesh.in">
+        Devesh Kumar
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="permissions" value="none"/>
     <preference name="android-minSdkVersion" value="14" />
     <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
     <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />

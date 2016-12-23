@@ -10,9 +10,6 @@
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.phonegappro.barcodescanner"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         },
@@ -69,6 +66,9 @@
         },
         "phonegap-plugin-push": {
             "SENDER_ID": "devsoft@gmail.com",
+            "PACKAGE_NAME": "com.phonegappro.barcodescanner"
+        },
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         }
     },

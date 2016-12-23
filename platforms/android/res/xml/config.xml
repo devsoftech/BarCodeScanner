@@ -3,9 +3,6 @@
     <feature name="Battery">
         <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
     </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>
     <feature name="Contacts">
         <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
     </feature>
@@ -68,12 +65,15 @@
     <feature name="PushNotification">
         <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
     </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
     <name>BarCodeScanner</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        BarCode scan for totp
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="devsoft@gmail.com" href="http://devesh.in">
+        Devesh Kumar
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -104,5 +104,6 @@
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="permissions" value="none" />
     <preference name="android-minSdkVersion" value="14" />
 </widget>
