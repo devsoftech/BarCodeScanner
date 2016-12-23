@@ -2,28 +2,161 @@
 <html lang="en">
 <head>
  <meta charset="UTF-8">
- <title>BarCode Scanner - PhoneGapPro.com</title>
- <script type="text/javascript" src="cordova.js"></script>
- <script type="text/javascript">
- function scan(){
- alert("clicked");
- alert(JSON.stringify(cordova));
- alert(JSON.stringify(cordova.plugins));
- cordova.plugins.barcodeScanner.scan(function(result){
- //success callback
- alert(JSON.stringify(result));
+ <title>Yahoo Small Business : Two-step verification</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 
- },function(error){
- //error callback
- alert(JSON.stringify(error));
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/sha.js"></script>
+    <script type="text/javascript" src="js/totp.js"></script>
+    <script type="text/javascript">
+        function dec2hex(s) { return (s < 15.5 ? '0' : '') + Math.round(s).toString(16); }
+        function hex2dec(s) { return parseInt(s, 16); }
 
- });
- }
- </script>
+        function base32tohex(base32) {
+            var base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+            var bits = "";
+            var hex = "";
+
+            for (var i = 0; i < base32.length; i++) {
+                var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
+                bits += leftpad(val.toString(2), 5, '0');
+            }
+
+            for (var i = 0; i+4 <= bits.length; i+=4) {
+                var chunk = bits.substr(i, 4);
+                hex = hex + parseInt(chunk, 2).toString(16) ;
+            }
+            return hex;
+
+        }
+
+        function leftpad(str, len, pad) {
+            if (len + 1 >= str.length) {
+                str = Array(len + 1 - str.length).join(pad) + str;
+            }
+            return str;
+        }
+
+        function updateOtp() {
+            var key = base32tohex($('#secret').val());
+            var epoch = Math.round(new Date().getTime() / 1000.0);
+            var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
+
+            // updated for jsSHA v2.0.0 - http://caligatio.github.io/jsSHA/
+            var shaObj = new jsSHA("SHA-1", "HEX");
+            shaObj.setHMACKey(key, "HEX");
+            shaObj.update(time);
+            var hmac = shaObj.getHMAC("HEX");
+
+            //$('#secretHex').text(key);
+            //$('#secretHexLength').text((key.length * 4) + ' bits');
+            //$('#epoch').text(time);
+            //$('#hmac').empty();
+
+            if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
+                //$('#hmac').append($('<span/>').addClass('label important').append(hmac));
+            } else {
+                var offset = hex2dec(hmac.substring(hmac.length - 1));
+                var part1 = hmac.substr(0, offset * 2);
+                var part2 = hmac.substr(offset * 2, 8);
+                var part3 = hmac.substr(offset * 2 + 8, hmac.length - offset);
+                //if (part1.length > 0 ) $('#hmac').append($('<span/>').addClass('label label-default').append(part1));
+                //$('#hmac').append($('<span/>').addClass('label label-primary').append(part2));
+                //if (part3.length > 0) $('#hmac').append($('<span/>').addClass('label label-default').append(part3));
+            }
+
+            var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
+            otp = (otp).substr(otp.length - 6, 6);
+
+            $('#otp').text(otp);
+        }
+
+        function timer() {
+            var epoch = Math.round(new Date().getTime() / 1000.0);
+            var countDown = 30 - (epoch % 30);
+            if (epoch % 30 == 0) updateOtp();
+            $('#updatingIn').text(countDown);
+
+        }
+
+        function scan(){
+            cordova.plugins.barcodeScanner.scan(function(result){
+                if (result.format==='QR_CODE') {
+                    var secret = result.text.split("=")[1].split("&")[0];
+                    $('#secret').val(secret);
+
+                    var label = result.text.split("/")[3].split(":")[0].split("?")[0];
+
+                    if (label === "SecretKey") {
+                        label = "Unknown Provider";
+                    }
+
+                    $('#label').text(label);
+                    $('#email').text(result.text.split("/")[3].split(":")[1].split("?")[0]);
+
+                    $('#otp-1').removeClass("hide");
+
+                    updateOtp();
+                    setInterval(timer, 1000);
+                }
+            },function(error){
+                //error callback
+                alert(JSON.stringify(error));
+            });
+        }
+    </script>
 </head>
-<body>
- <h3>BAR CODE SCANNER for 2FA</h3>
- <button onclick="scan()">SCAN</button>
+<body style="background-color: #fff;">
+<div class="container-fluid" style="background-color: #fff; min-height: 800px;">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-xs-12">
+            <h3>Yahoo Small Business</h3>
+            <h4 style="border-bottom: #d1d1d1 1px solid;padding-bottom: 20px;">Two-step verification</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="border-bottom: #d1d1d1 1px solid;padding-bottom: 20px;">
+                <button class="btn btn-lg btn-primary" onclick="scan()">Pair Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" name="secret" id="secret" value="" />
+        <span class="label label-default" id="secretHex"></span>
+        <span id='secretHexLength'></span>
+        <span class="label label-default" id='epoch'></span>
+        <div class="input" id='hmac'></div>
+    </div>
+
+    <div class="row hide" id="otp-1">
+        <div class="col-xs-12">
+            <div  style="background-color: #fafafa; border: #d1d1d1 1px solid; padding: 10px; margin: 20px 0 0 0;">
+                <div class="pull-right">
+                    <a class="close" href="#">&cross;</a>
+                </div>
+                <h5 id="label"></h5>
+                <h6 id="email"></h6>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="alert-info" style="padding: 10px;">
+                            <div class="input">OTP: <span class="label label-primary" id='otp' style="font-size: 18px;"></span></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="alert-warning" style="padding: 10px;text-align: right;">
+                            <div><span id='updatingIn' style="">0</span> s remaining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
 </body>
 </html>
-

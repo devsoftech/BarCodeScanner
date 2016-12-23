@@ -99,6 +99,10 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushNotification\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -114,6 +118,44 @@
                     "NSCameraUsageDescription": [
                         {
                             "xml": "<string>To scan barcodes</string>",
+                            "count": 1
+                        }
+                    ],
+                    "UIBackgroundModes": [
+                        {
+                            "xml": "<array><string>remote-notification</string></array>",
+                            "count": 1
+                        }
+                    ],
+                    "GCM_SENDER_ID": [
+                        {
+                            "xml": "<string>devsoft@gmail.com</string>",
+                            "count": 1
+                        }
+                    ],
+                    "IS_GCM_ENABLED": [
+                        {
+                            "xml": "<true />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Debug.plist": {
+                "parents": {
+                    "aps-environment": [
+                        {
+                            "xml": "<string>development</string>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Release.plist": {
+                "parents": {
+                    "aps-environment": [
+                        {
+                            "xml": "<string>production</string>",
                             "count": 1
                         }
                     ]
@@ -187,6 +229,10 @@
         },
         "phonegap-plugin-barcodescanner": {
             "CAMERA_USAGE_DESCRIPTION": "To scan barcodes",
+            "PACKAGE_NAME": "com.phonegappro.barcodescanner"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "devsoft@gmail.com",
             "PACKAGE_NAME": "com.phonegappro.barcodescanner"
         }
     },
@@ -759,6 +805,14 @@
             "clobbers": [
                 "cordova.plugins.barcodeScanner"
             ]
+        },
+        {
+            "id": "phonegap-plugin-push.PushNotification",
+            "file": "plugins/phonegap-plugin-push/www/push.js",
+            "pluginId": "phonegap-plugin-push",
+            "clobbers": [
+                "PushNotification"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -783,6 +837,7 @@
         "cordova-plugin-statusbar": "2.1.3",
         "cordova-plugin-vibration": "2.1.3",
         "cordova-plugin-whitelist": "1.2.2",
-        "phonegap-plugin-barcodescanner": "6.0.5"
+        "phonegap-plugin-barcodescanner": "6.0.5",
+        "phonegap-plugin-push": "1.9.2"
     }
 }
