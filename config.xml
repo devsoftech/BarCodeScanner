@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegappro.barcodescanner" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>BarCodeScanner</name>
+    <name>TOTP Generator</name>
     <description>
-        BarCode scan for totp
+        TOTP Generator
     </description>
     <author email="devsoft@gmail.com" href="http://devesh.in">
         Devesh Kumar
